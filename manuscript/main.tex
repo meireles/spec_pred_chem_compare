@@ -1,0 +1,179 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Preamble
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt, final]{article}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Looks
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Page geometry
+\usepackage[a4paper,text={16.0cm,24.6cm}, centering]{geometry}
+
+% Font optimization
+\usepackage{microtype}
+
+% Section headings size and spacing
+\usepackage[compact,medium]{titlesec}
+
+% Paragraphs
+\setlength{\parskip}{1.2ex}    % with spaces
+%\setlength{\parindent}{0em}    % no indentation
+
+% Prevent `orphans and widows`.
+\clubpenalty = 10000
+\widowpenalty = 10000
+
+% Ensures that floats (figures and tables) are within their section
+\usepackage[section]{placeins}
+
+% Take care of fonts in pdflatex
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+
+% Add line numbers
+\usepackage{lineno}
+
+% Pick line spacing
+\usepackage{setspace}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Useful packages
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{amsmath, amssymb}    % Math
+\usepackage{authblk}             % Multi author block
+\usepackage{subfiles}            % Multi-file document
+\usepackage{todonotes}           % To-do side notes
+\usepackage{datatool}            % Alternative to csvsimple
+\usepackage{colortbl}            % Adds colors to rows with \rowcolor.
+\usepackage{color}               % define transparent color
+\usepackage{booktabs}            % Pimp up tables
+\usepackage[normalem]{ulem}      % strikethrough text
+
+\usepackage[english]{babel}
+\usepackage{csquotes}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SI units and scientific notation
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[]{siunitx}
+
+% write ranges with en dash and only one "unit"
+\sisetup{range-phrase=--, range-units=single, scientific-notation=false}
+
+% siunitx doesn't have M (molar). Add it as custom unit
+\DeclareSIUnit\molar{\textsc{M}}
+
+% transform scientific notation numbers into regular numbers
+\newcommand{\scitonum}[1]{ \num[scientific-notation=fixed,fixed-exponent=0,group-digits=false]{#1}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Figures
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage{graphicx}
+\graphicspath{ {figures/} }
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% References
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage[backend=biber, style=authoryear, maxcitenames=2, minbibnames=3, maxbibnames=99, bibstyle=authoryear]{biblatex}
+
+%%\addbibresource{references/bibtexlib/library.bib}
+\AtEveryBibitem{\clearfield{url}}
+
+\AtEveryBibitem{\clearfield{url}}
+\AtEveryBibitem{\clearfield{URL}}
+\AtEveryBibitem{\clearfield{issn}}
+\AtEveryBibitem{\clearfield{ISSN}}
+
+
+\renewbibmacro{in:}{%
+  \ifentrytype{article}{}{\printtext{\bibstring{in}\intitlepunct}}}
+
+%% Bold volume
+%% Parenthesis around issue
+%% http://tex.stackexchange.com/questions/81569/biblatex-parentheses-around-the-volume-number-of-an-article#81573
+
+\renewbibmacro*{volume+number+eid}{%
+  \textbf{ \printfield{volume} } %
+%  \setunit*{\adddot}% DELETED
+  \setunit*{\addnbspace}% NEW (optional); there's also \addnbthinspace
+  \printfield{number}%
+  \setunit{\addcomma\space}%
+  \printfield{eid}}
+\DeclareFieldFormat[article]{number}{\mkbibparens{#1}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Custom commands
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% dN, dS
+\newcommand{\dn}[0]{\textit{dN}}
+\newcommand{\ds}[0]{\textit{dS}}
+
+% overwrite datatool dtldisplay... with booktabs' lines
+\renewcommand{\dtldisplaystarttab}{\toprule}
+\renewcommand{\dtldisplayafterhead}{\midrule}
+\renewcommand{\dtldisplayendtab}{\\\bottomrule}
+
+% row shading for tables
+\definecolor{shadegrey}{gray}{0.85}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Manuscript
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{From spectra to traits}
+
+\author[1*]{Anna Schweiger}
+\author[1**]{Jose Eduardo Meireles}
+\author[1***]{Jeannine Cavender-Bares}
+\author[2]{Others}
+
+\affil[1]{Ecology, Evolution, and Behavior, University of Minnesota}
+\affil[2]{From somewhere else}
+
+\affil[*]{aschweig@umn.edu}
+\affil[**]{meireles@umn.edu}
+\affil[***]{cavender@umn.edu}
+
+\date{\today}
+
+\begin{document}
+\linenumbers
+
+%% \doublespacing
+\onehalfspacing
+
+\maketitle
+
+\section{Ramblings}
+
+
+Because leaf spectra integrate over many morpho-anatomical and chemical properties of leaves, they have been widely used to infer ecologically relevant leaf traits such levels of nitrogen, carbon and concentration photosynthetic pigments.
+
+
+Those inferences are generally drawn based on PLSR models. Although PLSR has been successfully applied in chemometrics and spectroscopy, there are potential drawbacks. PLSR is designed as a predictive model instead of an explanatory model, and may fail to recover the true underlying model.
+
+Bayesian model averaging has been suggested an alternative approach ...
+
+
+Goals: Compare the performance of PLSR and BMA in chemistry / morphology inference:
+
+\begin{enumerate}
+	\item Fit: do they explain different amounts of the variation?
+	\item Explaining trait / spec relationship: Do they identify the same regions of the spectra to be related to a given trait?
+	\item Predictive accuracy: How well do these methods predict chemistry?
+	\item Robustness: Which method is more robust to misspecification (or say noise / bias in spectra such as illumination effects)
+\end{enumerate}
+
+
+
+\end{document}
