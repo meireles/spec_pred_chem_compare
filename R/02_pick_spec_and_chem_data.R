@@ -4,7 +4,7 @@ library("spectrolab")
 # Read data
 ########################################
 
-## Resolution: 05nm
+## Resolution: 10nm
 ## Normalized: FALSE
 
 cn16    = readRDS("data/processed/spectra/regular/CN16_10nm.rds")
