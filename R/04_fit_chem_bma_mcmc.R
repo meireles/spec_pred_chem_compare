@@ -26,7 +26,7 @@ getDoParWorkers()
 ####################
 
 ## MCMC
-iter   = 1e8
+iter   = 5e7
 thin   = iter / 5e5
 
 ## Model prior
