@@ -26,8 +26,8 @@ getDoParWorkers()
 ####################
 
 ## MCMC
-iter   = 5e7
-thin   = iter / 5e5
+iter   = 1e8
+thin   = 1e2
 
 ## Model prior
 
@@ -53,7 +53,7 @@ fit_mcmc = foreach(i = names(data_2016), .packages = "BAS") %dopar% {
                       data            = data_2016[[i]]$spec,
                       prior           = "ZS-null",
                       n.models        = 1e6,
-                      update          = 100,
+                      update          = 20,
                       modelprior      = modelprior,
                       method          = "MCMC",
                       MCMC.iterations = iter,
