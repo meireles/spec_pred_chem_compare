@@ -26,8 +26,8 @@ getDoParWorkers()
 ####################
 
 ## MCMC
-iter   = 1e8
-thin   = 1e2
+iter   = 2e8
+thin   = 2e2
 
 ## Model prior
 
