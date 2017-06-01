@@ -26,20 +26,26 @@ getDoParWorkers()
 ####################
 
 ## MCMC
-iter   = 2e8
-thin   = 2e2
+iter   = 2e7
+thin   = 10
 
 ## Model prior
 
 # Justification for prior choice
 #   The first moment of a beta binomial is: {n * alpha} / {alpha + beta}.
-#   It seems reasonable that the full model includes ~ 30 bands (10nm, total 210)
-#   to maybe ~ 45 at 5nm (total 420).
-#   So a betabinom(2, 12) shoud work for 10nm and betabinom(2, 16) work for 5nm.
+#   It seems reasonable that the full model includes ~ 20 bands (10nm, total 210)
+#   to maybe ~ 40 at 5nm (total 420).
+#   So a betabinom(1.2, 12) shoud work
 
-alpha_m_p0 = 1   # 2
-beta_m_p0  = 1   # 12 or 16
+alpha_m_p0 = 1.3
+beta_m_p0  = 12.7
 modelprior = beta.binomial(alpha_m_p0, beta_m_p0)
+
+# n = ncol(data_2016$Nitrogen_perc$spec)
+# library("extraDistr")
+# hist(extraDistr::rbbinom(5e4, n, alpha_m_p0, beta_m_p0),
+#      breaks = 500, col = "grey", freq = FALSE)
+
 
 ####################
 ## Fit
